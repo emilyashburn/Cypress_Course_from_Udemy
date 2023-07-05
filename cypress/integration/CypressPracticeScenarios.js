@@ -4,7 +4,6 @@ Some code here is found exactly as it is in the Udemy course.
 */
 
 describe('Practice Suite', function(){
-    /*
     it('Radio Button Example', function(){  
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
         cy.get('fieldset').contains('Radio Button Example').as('radioButtonSection');
@@ -22,8 +21,7 @@ describe('Practice Suite', function(){
         cy.get('[value="radio1"]').should('not.be.checked');
         cy.get('[value="radio2"]').should('not.be.checked');
     })
-    */
-    /*
+    
     it('Checkbox Example', function(){
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
         cy.get('fieldset').contains('Checkbox Example').as('checkboxSection');
@@ -45,23 +43,20 @@ describe('Practice Suite', function(){
         cy.get('@checkboxSection').find('~ label input').uncheck(['option1','option2','option3']).should('not.be.checked');
 
     })
-    */
-    /*
+    
     it('Dropdown Example', function(){
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
         cy.get('fieldset').contains('Dropdown Example').as('dropdownSection');
         cy.get('@dropdownSection').find('~ select[id="dropdown-class-example"]').select('option1').should('have.value', 'option1');
     })
-    */
-    /*
+    
     it('Dynamic Dropdown Example', function() {
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
         cy.get('fieldset').contains('Suggession Class Example').as('dynamicDropdownSection');
         cy.get('@dynamicDropdownSection').find('~ input').type('united');
         cy.get('.ui-menu-item').contains('USA').click();
     })
-    */
-    /*
+    
     it('Visible/Invisible Textbox Example', function(){
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
         cy.get('input[name="show-hide"]').as('houdini');
@@ -75,8 +70,7 @@ describe('Practice Suite', function(){
         cy.get('#show-textbox').click();
         cy.get('@houdini').should('be.visible');
     })
-    */
-    /*
+    
     it('Pop-up Examples', function(){
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
 
@@ -94,7 +88,7 @@ describe('Practice Suite', function(){
             expect(str).to.equal('Hello Emily, Are you sure you want to confirm?')
         })
     })
-    */
+    
     it('Open New Tab Example', function(){
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
         
