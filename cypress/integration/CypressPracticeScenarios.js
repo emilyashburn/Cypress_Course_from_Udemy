@@ -87,11 +87,11 @@ describe('Practice Suite', function(){
     })
     
     it('Open New Tab Example', function(){
+        //Navigate to new website
+        cy.visit('https://parabank.parasoft.com/parabank/lookup.htm')
         //Since we visit the rahulshetty website before each test, and I want to use a different website for this test,
         // we have to redefine the origin in order to test on it.
         cy.origin('https://parabank.parasoft.com/parabank/lookup.htm', function(){
-            //Navigate to new website
-            cy.visit('https://parabank.parasoft.com/parabank/lookup.htm')
             //Visit different page
             cy.get('.leftmenu li a').contains('Admin Page').click()
             //Verify the URL contains the expected string. There's a session num attached to the url, so we want to verify
@@ -104,11 +104,11 @@ describe('Practice Suite', function(){
     })
     
     it('Table Example', function(){
+        //Navigate to new website
+        cy.visit('https://petstore.octoperf.com/actions/Catalog.action')
         //Since we visit the rahulshetty website before each test, and I want to use a different website for this test,
         // we have to redefine the origin in order to test on it.
         cy.origin('https://petstore.octoperf.com/actions/Catalog.action', function(){
-            //Navigate to new website
-            cy.visit('https://petstore.octoperf.com/actions/Catalog.action')
             //Search for "Manx"
             cy.get('#SearchContent form input[type="text"]').type('Manx')
             cy.get('#SearchContent form input[name="searchProducts"]').click()
@@ -136,6 +136,14 @@ describe('Practice Suite', function(){
                     }
                 })
             })
-        })     
+        })
     })
+    
+    it('Hover Popup Example', function(){
+        //Cypress does not handle hover over elements. We can use Jquery to supplement Cypress here.
+        cy.get('div .mouse-hover-content').invoke('show')
+        cy.contains('Top').click()
+        cy.url().should('include', 'top')
+    })
+    
 })
