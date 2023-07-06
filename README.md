@@ -20,11 +20,12 @@ $ cd Cypress_Course_from_Udemy
 # Install the dependencies
 $ npm install
 
-# Run the Cypress TestRunner
-$ npm run cy:open
+# Run the Cypress TestRunner to execute specific specs
+$ .\node_modules\.bin\cypress open
 
 # ...or...
 
-# Run the tests in 'headless' mode
-$ npm run cy:run
+# Run the tests in 'headed' mode in chrome
+$ .\node_modules\.bin\cypress run -b chrome --headed
 ```
+https://github.com/emilyashburn/Cypress_Course_from_Udemy/assets/46406272/0621f2a5-7749-44af-838d-b32c496d9e8f
