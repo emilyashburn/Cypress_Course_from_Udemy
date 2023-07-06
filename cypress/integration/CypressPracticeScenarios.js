@@ -4,8 +4,11 @@ Some code here is found exactly as it is in the Udemy course.
 */
 
 describe('Practice Suite', function(){
-    it('Radio Button Example', function(){  
+    beforeEach(function(){
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
+    })
+    /*
+    it('Radio Button Example', function(){  
         cy.get('fieldset').contains('Radio Button Example').as('radioButtonSection');
         
         //Select the 1st radio button
@@ -23,7 +26,6 @@ describe('Practice Suite', function(){
     })
     
     it('Checkbox Example', function(){
-        cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
         cy.get('fieldset').contains('Checkbox Example').as('checkboxSection');
 
         //First technique
@@ -45,20 +47,17 @@ describe('Practice Suite', function(){
     })
     
     it('Dropdown Example', function(){
-        cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
         cy.get('fieldset').contains('Dropdown Example').as('dropdownSection');
         cy.get('@dropdownSection').find('~ select[id="dropdown-class-example"]').select('option1').should('have.value', 'option1');
     })
     
     it('Dynamic Dropdown Example', function() {
-        cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
         cy.get('fieldset').contains('Suggession Class Example').as('dynamicDropdownSection');
         cy.get('@dynamicDropdownSection').find('~ input').type('united');
         cy.get('.ui-menu-item').contains('USA').click();
     })
     
     it('Visible/Invisible Textbox Example', function(){
-        cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
         cy.get('input[name="show-hide"]').as('houdini');
 
         //By default, the textbox should be visible
@@ -72,8 +71,6 @@ describe('Practice Suite', function(){
     })
     
     it('Pop-up Examples', function(){
-        cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
-
         //Alert and Confirm pop-ups are automatically handled by Cypress.
         //Capture the Alert pop-up to compare the confirm text to a string
         cy.get('[id="name"]').type('Emily');
@@ -87,13 +84,23 @@ describe('Practice Suite', function(){
         cy.on('window:confirm', (str) => {
             expect(str).to.equal('Hello Emily, Are you sure you want to confirm?')
         })
-    })
+    })*/
     
     it('Open New Tab Example', function(){
-        cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
-        
-        //Navigating a new tab or new window is not supported with Cypress to prevent 'flaky code', so let's delete the "target" attribute.
-        //Deleting the "target" attribute will allow us to navigate to the desired link on the same tab/window.
-        cy.get('#opentab').invoke('removeAttr', 'target').click()
+        //Since we visit the rahulshetty website before each test, and I want to use a different website for this test,
+        // we have to redefine the origin in order to test on it.
+        cy.origin('https://parabank.parasoft.com/parabank/lookup.htm', function(){
+            //Navigate to new website
+            cy.visit('https://parabank.parasoft.com/parabank/lookup.htm')
+            //Visit different page
+            cy.get('.leftmenu li a').contains('Admin Page').click()
+            //Verify the URL contains the expected string. There's a session num attached to the url, so we want to verify
+            // the text is contained within that long, unique URL.
+            cy.url().should('contain', 'https://parabank.parasoft.com/parabank/admin.htm')
+            cy.go('back')
+            //Verify the URL has changed back to the previous one.
+            cy.url().should('contain', 'https://parabank.parasoft.com/parabank/lookup.htm')    
+        });
+
     })
 })
