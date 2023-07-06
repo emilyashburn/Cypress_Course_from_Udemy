@@ -7,7 +7,7 @@ describe('Practice Suite', function(){
     beforeEach(function(){
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
     })
-    /*
+    
     it('Radio Button Example', function(){  
         cy.get('fieldset').contains('Radio Button Example').as('radioButtonSection');
         
@@ -84,7 +84,7 @@ describe('Practice Suite', function(){
         cy.on('window:confirm', (str) => {
             expect(str).to.equal('Hello Emily, Are you sure you want to confirm?')
         })
-    })*/
+    })
     
     it('Open New Tab Example', function(){
         //Since we visit the rahulshetty website before each test, and I want to use a different website for this test,
@@ -101,6 +101,41 @@ describe('Practice Suite', function(){
             //Verify the URL has changed back to the previous one.
             cy.url().should('contain', 'https://parabank.parasoft.com/parabank/lookup.htm')    
         });
+    })
+    
+    it('Table Example', function(){
+        //Since we visit the rahulshetty website before each test, and I want to use a different website for this test,
+        // we have to redefine the origin in order to test on it.
+        cy.origin('https://petstore.octoperf.com/actions/Catalog.action', function(){
+            //Navigate to new website
+            cy.visit('https://petstore.octoperf.com/actions/Catalog.action')
+            //Search for "Manx"
+            cy.get('#SearchContent form input[type="text"]').type('Manx')
+            cy.get('#SearchContent form input[name="searchProducts"]').click()
+            
+            //Verify we're on the row of Manx, then click the previous previous cell value to go to all Manx available.
+            cy.get('tr td:nth-child(3)').invoke('text').then(function(catName) {
+                expect(catName).to.be.eq('Manx');
+                cy.get('tr td:nth-child(3)').prev().prev().find('a').click()
+            })
 
+            //Wait until page is loaded. Page does not display a loading icon for Cypress
+            cy.get('h2').should('be.visible').then(function(){
+                //Search table for Manx matches
+                cy.get('tr td:nth-child(3)').each(($e1, index, $list) => {
+                    const text = $e1.text()
+                    if(text.includes('Manx'))
+                    {
+                        //If cat price is equal to $23.50, click add to cart
+                        cy.get('tr td:nth-child(3)').eq(index).next().then(price => {
+                            if(price.text().includes('$23.50'))
+                            {
+                                cy.get(price).next().click()
+                            }
+                        })
+                    }
+                })
+            })
+        })     
     })
 })
