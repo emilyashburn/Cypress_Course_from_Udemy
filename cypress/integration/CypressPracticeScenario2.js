@@ -14,7 +14,6 @@ describe('iFrame test suite', function() {
         cy.get('#pass').type(this.data.pass)
         cy.get('[name="company"]').eq(0).type(this.data.company)
         cy.get('[name="mobile number"]').eq(0).type(this.data.phone)
-
     })
 
     it('iFrame Example', function(){
