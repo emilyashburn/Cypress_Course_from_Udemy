@@ -1,25 +1,13 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+//***** Greenkart Commands *****
+Cypress.Commands.add('addItemToCart', (itemName) => {
+    //Find all products, and search for specific item
+    cy.get('.product .product-name:visible').each((el, index, list) => {
+        //If product matches search, add it to the cart once.
+        if(el.text().includes(itemName)){
+            cy.log(el.text())
+            cy.get('.product:visible').eq(index).contains('ADD TO CART').click().contains('ADDED')
+        }
+    })
+})
+
+//***** Other Commands *****
