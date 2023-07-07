@@ -1,3 +1,8 @@
+/// <reference types="cypress-iframe"/>
+/// <reference types="cypress-wait-until"/>
+
+import 'cypress-iframe'
+import 'cypress-wait-until'
 /*
 The following code was created by me while walking through the video tutorials (author: Rahul Shetty) on Udemy.
 Some code here is found exactly as it is in the Udemy course.
@@ -7,7 +12,7 @@ describe('Practice Suite', function(){
     beforeEach(function(){
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
     })
-    
+
     it('Radio Button Example', function(){  
         cy.get('fieldset').contains('Radio Button Example').as('radioButtonSection');
         
@@ -145,5 +150,4 @@ describe('Practice Suite', function(){
         cy.contains('Top').click()
         cy.url().should('include', 'top')
     })
-    
 })
