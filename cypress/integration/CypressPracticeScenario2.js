@@ -2,7 +2,7 @@
 // the cy.origin() command does not support custom commands like cy.frameLoaded();
 describe('iFrame test suite', function() {
 
-    before(function(){
+    beforeEach(function(){
         cy.readFile('cypress/fixtures/formInfo.json').then(function(data) {
             this.data = data
         })

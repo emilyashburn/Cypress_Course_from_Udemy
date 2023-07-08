@@ -9,7 +9,7 @@ Some code here is found exactly as it is in the Udemy course.
 */
 
 describe('Practice Suite', function(){
-    before(function(){
+    beforeEach(function(){
         cy.visit('https://rahulshettyacademy.com/AutomationPractice/');
     })
 
