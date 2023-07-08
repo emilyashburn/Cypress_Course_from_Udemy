@@ -3,7 +3,7 @@ import HomePage from './pageObjects/greenKart/HomePage'
 import CartPage from './pageObjects/greenKart/CartPage'
 import CountryPage from './pageObjects/greenKart/CountryPage'
 
-// 07/03/2023 - Learning Cypress with Mocha/Chai frameworks
+//Initialize pageObjects
 const homePage = new HomePage()
 const cartPage = new CartPage()
 const countryPage = new CountryPage()
@@ -20,8 +20,9 @@ describe('Greenkart Test suite', function() {
         cy.visit('https://rahulshettyacademy.com/seleniumPractise/#/')
 
         //Step 2: Type in product name and add desired product to cart
-        cy.get('.search-keyword').type('be').then(function(){
+        homePage.getSearchBar().type('be').then(function(){
             //Add an item to your cart with a custom command
+            cy.wait(1000)
             cy.addItemToCart('Beans');
         });
 
@@ -29,6 +30,19 @@ describe('Greenkart Test suite', function() {
         this.data.products.forEach(function(item) {
             cy.addItemToCart(item);
         });
+
+        //Step 4: Go to cart and add up the total cost of all items
+        homePage.getCartButton().click();
+        cartPage.getProceedToCheckoutButton().click()
+
+        //Validate the total cost
+        cartPage.calculatePriceOfItems(342)
+
+        //Complete purchase
+        cartPage.getPlaceOrderButton().click()
+        countryPage.getCountryDropDown().select('United States').should('have.value', 'United States');
+        countryPage.getCheckAgreeCheckbox().check().should('be.checked');
+        countryPage.getProceedButton().click()
     }) 
 
     it('Search and Add Item to Cart', function() {
