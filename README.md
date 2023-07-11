@@ -12,10 +12,10 @@ Before we can run the tests in this repository, we need to have [Git](https://gi
 Clone the repository onto your machine and install the dependencies listed in ``package.json`` by copying these steps into your CLI:
 ```ruby
 # Clone this repository
-$ git clone https://github.com/emilyashburn/Cypress_Course_from_Udemy.git
+$ git clone https://github.com/emilyashburn/Cypress_Examples.git
 
 # Move into the cloned repository
-$ cd Cypress_Course_from_Udemy
+$ cd Cypress_Examples
 
 # Install the dependencies
 $ npm install
