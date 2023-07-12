@@ -1,5 +1,6 @@
+
 //***** Greenkart Commands *****
-Cypress.Commands.add('addItemToCart', (itemName) => {
+Cypress.Commands.add('addItemToCart', function(itemName) {
     //Find all products, and search for specific item
     cy.get('.product .product-name:visible').each((el, index, list) => {
         //If product matches search, add it to the cart once.
@@ -11,3 +12,4 @@ Cypress.Commands.add('addItemToCart', (itemName) => {
 })
 
 //***** Other Commands *****
+import 'cypress-wait-until';

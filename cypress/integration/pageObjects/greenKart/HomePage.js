@@ -14,7 +14,7 @@ class HomePage {
     addProductToCart(productName){
         this.getProducts().find('.product').each((el, index, list) => {
             if(el.find('.product-name').text().includes(productName)){
-                cy.get(el).contains('ADD TO CART').click();
+                return cy.get(el).contains('ADD TO CART').click();
             }
         })
     }

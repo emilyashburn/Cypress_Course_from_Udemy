@@ -1,28 +1,29 @@
 /// <reference types="Cypress"/>
 import HomePage from './pageObjects/greenKart/HomePage'
-import CartPage from './pageObjects/greenKart/CartPage'
-import CountryPage from './pageObjects/greenKart/CountryPage'
+import CheckoutPage from './pageObjects/greenKart/CheckoutPage'
+import ConfirmCartPurchasePage from './pageObjects/greenKart/ConfirmCartPurchasePage'
 
 //Initialize pageObjects
 const homePage = new HomePage()
-const cartPage = new CartPage()
-const countryPage = new CountryPage()
+const checkoutPage = new CheckoutPage()
+const confirmCartPurchasePage = new ConfirmCartPurchasePage()
 
 describe('Greenkart Test suite', function() {
-    before(function() {
-        cy.readFile('cypress/fixtures/greenkartItems.json').then(function(data) {
+    //Test Setup
+    beforeEach(function() {
+        cy.fixture('greenkartItems.json').then( function(data) {
             this.data = data
         })
     })
 
-    it('Add Item to Cart with Custom Command', function() {
+    it('Add Items from JSON to Cart and Purchase', function() {
         //Step 1: Navigate to practice website
         cy.visit('https://rahulshettyacademy.com/seleniumPractise/#/')
 
         //Step 2: Type in product name and add desired product to cart
-        homePage.getSearchBar().type('be').then(function(){
+        homePage.getSearchBar().type('be').then( function() {
             //Add an item to your cart with a custom command
-            cy.wait(1000)
+            cy.wait(1000)       //There's no loading symbol after updating the search bar, so this cy.wait is necessary for this case.
             cy.addItemToCart('Beans');
         });
 
@@ -33,24 +34,18 @@ describe('Greenkart Test suite', function() {
 
         //Step 4: Go to cart and add up the total cost of all items
         homePage.getCartButton().click();
-        cartPage.getProceedToCheckoutButton().click()
+        checkoutPage.getProceedToCheckoutButton().click()
 
-        //Validate the total cost
-        cartPage.calculatePriceOfItems(342)
-
-        //Complete purchase
-        cartPage.getPlaceOrderButton().click()
-        countryPage.getCountryDropDown().select('United States').should('have.value', 'United States');
-        countryPage.getCheckAgreeCheckbox().check().should('be.checked');
-        countryPage.getProceedButton().click()
+        //Step 5: Validate the total cost
+        checkoutPage.calculatePriceOfItems(342)
     }) 
 
-    it('Search and Add Item to Cart', function() {
+    it('Search and Add Item to Cart', () => {
         //Step 1: Navigate to practice website
         cy.visit('https://rahulshettyacademy.com/seleniumPractise/#/');
 
         //Step 2: Type the string "ca" into the search bar
-        homePage.getSearchBar().type('ca').then(function() {
+        homePage.getSearchBar().type('ca').then( function() {
         //Step 3: Verify there are 4 products from the search string "ca"
             homePage.getProducts().find('.product').should('have.length',4);
         })
@@ -65,12 +60,12 @@ describe('Greenkart Test suite', function() {
 
         //Step 6: Go to cart and purchase items
         homePage.getCartButton().click();
-        cartPage.getProceedToCheckoutButton().click()
-        cartPage.getPlaceOrderButton().click()
+        checkoutPage.getProceedToCheckoutButton().click()
+        checkoutPage.getPlaceOrderButton().click()
 
         //Step 7: Confirm purchase by selecting Country and checking the Terms & Conditions Checkbox
-        countryPage.getCountryDropDown().select('United States').should('have.value', 'United States');
-        countryPage.getCheckAgreeCheckbox().check().should('be.checked');
-        countryPage.getProceedButton().click()
+        confirmCartPurchasePage.getCountryDropDown().select('United States').should('have.value', 'United States');
+        confirmCartPurchasePage.getCheckAgreeCheckbox().check().should('be.checked');
+        confirmCartPurchasePage.getProceedButton().click()
     })
 })
