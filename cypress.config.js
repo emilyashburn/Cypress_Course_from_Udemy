@@ -1,5 +1,6 @@
 const { defineConfig } = require("cypress");
 
+
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
@@ -7,6 +8,7 @@ module.exports = defineConfig({
     },
     specPattern: 'cypress/integration/*.js',
     defaultCommandTimeout: 5000,
-    supportFile: 'cypress/support/e2e.js'
+    supportFile: 'cypress/support/e2e.js',
+    "chromeWebSecurity": false                //this setting allows Swag Labs to load via CypressRunner
     },
 });
